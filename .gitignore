@@ -1,0 +1,15 @@
+# Ignore binary dumps
+*.bin
+*.img
+mtdblock*
+
+# Ignore extracted filesystem (rebuild it on the fly)
+squashfs-root/
+
+# Ignore compiled tools (build your own)
+sunxi-tools/
+sunxi-fel
+
+# Ignore temp files
+.DS_Store
+*.bak
