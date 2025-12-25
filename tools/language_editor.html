@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shitty Action Camera Language Editor</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: #eee; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: #2a2a2a; padding: 20px; border-radius: 8px; }
+        textarea { width: 100%; height: 400px; background: #000; color: #0f0; font-family: monospace; padding: 10px; border: 1px solid #444; }
+        .info { margin-bottom: 20px; padding: 10px; background: #333; border-left: 4px solid #00D7FF; }
+        button { background: #00D7FF; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 4px; }
+        button:disabled { background: #555; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Language Editor</h2>
+        <div class="info">
+            1. Upload your lang.bin file<br>
+            2. Edit the lines (Each line = one menu item/message).<br>
+            3. <b>Important:</b> The tool will automatically pad the file with spaces to match the original size.
+        </div>
+        
+        <input type="file" id="fileInput" accept=".bin"><br><br>
+        <textarea id="textEditor" placeholder="Upload a file to start..."></textarea><br><br>
+        
+        <div id="stats">Size: 0 / 0 bytes</div><br>
+        <button id="downloadBtn" disabled>Download Modified en.bin</button>
+    </div>
+
+    <script>
+        let originalSize = 0;
+        const fileInput = document.getElementById('fileInput');
+        const textEditor = document.getElementById('textEditor');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const stats = document.getElementById('stats');
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            originalSize = file.size;
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const decoder = new TextDecoder('utf-8');
+                textEditor.value = decoder.decode(event.target.result);
+                updateStats();
+                downloadBtn.disabled = false;
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        textEditor.addEventListener('input', updateStats);
+
+        function updateStats() {
+            const encoder = new TextEncoder();
+            const currentSize = encoder.encode(textEditor.value).length;
+            stats.innerText = `Current Size: ${currentSize} / Original Size: ${originalSize} bytes`;
+            if (currentSize > originalSize) {
+                stats.style.color = 'red';
+                downloadBtn.disabled = true;
+            } else {
+                stats.style.color = 'white';
+                downloadBtn.disabled = false;
+            }
+        }
+
+        downloadBtn.addEventListener('click', function() {
+            const encoder = new TextEncoder();
+            let data = encoder.encode(textEditor.value);
+            
+            // Padding logic
+            if (data.length < originalSize) {
+                const paddedData = new Uint8Array(originalSize);
+                paddedData.set(data);
+                // Fill the rest with Spaces (0x20)
+                for (let i = data.length; i < originalSize; i++) {
+                    paddedData[i] = 0x20; 
+                }
+                data = paddedData;
+            }
+
+            const blob = new Blob([data], {type: 'application/octet-stream'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'en.bin';
+            a.click();
+        });
+    </script>
+</body>
+</html>
