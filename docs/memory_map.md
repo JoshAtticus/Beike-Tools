@@ -1,6 +1,6 @@
 # Memory Map & Flash Layout
 
-The Allwinner V3 camera uses an SPI NOR Flash chip (usually 8MB or 16MB). The system is divided into MTD (Memory Technology Device) blocks.
+The Allwinner V3 camera uses an SPI NOR Flash chip (usually 8MB). The system is divided into MTD (Memory Technology Device) blocks.
 
 ## Partition Table (Standard "Beike" Layout)
 
@@ -8,7 +8,7 @@ The Allwinner V3 camera uses an SPI NOR Flash chip (usually 8MB or 16MB). The sy
 | :--- | :--- | :--- | :--- | :--- |
 | **Boot0** | `mtdblock0` | SPL / Bootloader | 256 KB | **DO NOT TOUCH**. Contains hardware init. |
 | **Kernel** | `mtdblock1` | Linux Kernel / U-Boot | 2.5 MB | The OS core. |
-| **System** | `mtdblock2` | **SquashFS RootFS** | ~4.5 MB | **Primary Modding Target**. Contains UI (`sdv`), configs, and drivers. |
+| **System** | `mtdblock2` | **SquashFS RootFS** | ~4.7 MB | **Primary Modding Target**. Contains UI (`sdv`), configs, and drivers. |
 | **Data** | `mtdblock3` | User Data | Variable | Writable partition (`/data`). Wifi configs, logs. |
 | **Logo1** | `mtdblock4` | Boot Logo | 128 KB | Raw JPEG (220x176). |
 | **Logo2** | `mtdblock5` | Shutdown Logo | 128 KB | Raw JPEG (220x176). |
