@@ -1,0 +1,2 @@
+# Hawkview
+These are my custom config files for my camera! It gets rid of the horrible image processing, making the camera even manage to look good at night! Extremely impressive for $30 hardware. These configs are for IMX175 cameras, the files inside the IMX175 folder will work with other sensors if you rename the folder to match your sensor, but the sensor_list_cfg.ini file needs to be modified to work with other sensors.
