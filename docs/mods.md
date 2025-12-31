@@ -38,3 +38,5 @@ sensor_name0            = "imx175" # change to your sensor name
 ... steal everything in between these 2 from the original thingy
 isp_cfg_name0           = "imx175" # this should be the same as the folder name under /etc/hawkview
 ```
+
+Once done, resquashfs and flash to mtdblock2
