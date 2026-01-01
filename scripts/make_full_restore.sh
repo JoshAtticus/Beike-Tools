@@ -1,16 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Script to create a full restore image from mtdblock files
+# Script to create a full restore image from mtdblock files (no version prompt)
 
-# Ask for version
-read -r -p "Enter version (e.g. 1.0): " VERSION
-if [[ -z "$VERSION" ]]; then
-    echo "No version provided. Exiting."
-    exit 1
-fi
-
-OUT="full_restore_v${VERSION}.bin"
+OUT="full_restore.bin"
 
 # Check if mtdblock0 exists (required)
 if [[ ! -f "mtdblock0" ]]; then
@@ -22,8 +15,8 @@ fi
 declare -a blocks=()
 blocks+=("mtdblock0")
 
-# Check for mtdblock1-6 in order, stop at first missing
-for i in {1..6}; do
+# Check for mtdblock1-7 in order, stop at first missing
+for i in {1..7}; do
     if [[ -f "mtdblock${i}" ]]; then
         blocks+=("mtdblock${i}")
     else

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Infos>
+
+	<Short>beikeimx179s</Short>
+
+	<ProductType>0</ProductType>
+
+	<ModelType>1</ModelType>
+
+	<ScreenStruct>2</ScreenStruct>
+
+	<SensorType>imx179s</SensorType>
+
+	<ScreenType>gc9305</ScreenType>
+
+	<CamType>bk6182</CamType>
+
+	<FirmDate>20180402</FirmDate>
+
+	<SubClient>zhongxing</SubClient>
+
+</Infos>
